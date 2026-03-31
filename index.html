@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cresta — Dotknij szczytu smaku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1A1A18;
+    --gold: #C8A96E;
+    --gold-light: #E2C99A;
+    --cream: #F5F2ED;
+    --cream-dark: #EAE5DC;
+    --gray: #888780;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    mix-blend-mode: normal;
+  }
+
+  nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(26,26,24,0.9), transparent);
+    pointer-events: none;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 48px;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-cart {
+    position: relative;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 0.5px solid var(--gold);
+    padding: 8px 20px;
+    opacity: 0.9;
+    transition: opacity 0.3s, background 0.3s;
+  }
+
+  .nav-cart:hover { opacity: 1; background: rgba(200,169,110,0.1); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(200,169,110,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 20% 80%, rgba(200,169,110,0.04) 0%, transparent 60%);
+  }
+
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.06;
+  }
+
+  .hero-lines::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 30%;
+    width: 1px;
+    height: 200%;
+    background: var(--gold);
+    transform: rotate(15deg);
+  }
+
+  .hero-lines::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 60%;
+    width: 1px;
+    height: 200%;
+    background: var(--gold);
+    transform: rotate(15deg);
+  }
+
+  .hero-tagline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 10vw, 120px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 16px 40px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-secondary {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-secondary::after {
+    content: '→';
+    font-size: 14px;
+  }
+
+  .btn-secondary:hover { opacity: 1; }
+
+  .hero-scroll {
+    position: absolute;
+    right: 60px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    writing-mode: vertical-rl;
+  }
+
+  .hero-scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s ease infinite;
+  }
+
+  /* STRIP */
+  .strip {
+    border-top: 0.5px solid rgba(200,169,110,0.2);
+    border-bottom: 0.5px solid rgba(200,169,110,0.2);
+    padding: 20px 60px;
+    display: flex;
+    gap: 60px;
+    overflow: hidden;
+  }
+
+  .strip-item {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .strip-item::before {
+    content: '◆';
+    font-size: 6px;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 140px 60px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .section-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-link::after { content: '→'; }
+  .section-link:hover { opacity: 1; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #111110;
+  }
+
+  .product-card:hover .product-img-wrap { transform: scale(1.03); }
+  .product-card:hover .product-cta { opacity: 1; transform: translateY(0); }
+
+  .product-img-wrap {
+    aspect-ratio: 3/4;
+    transition: transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111110;
+    position: relative;
+  }
+
+  .product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(160deg, #1e1e1c 0%, #111110 60%);
+  }
+
+  .product-placeholder-icon {
+    width: 60px;
+    height: 120px;
+    border: 0.5px solid rgba(200,169,110,0.3);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-placeholder-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: rgba(200,169,110,0.4);
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 5px 12px;
+  }
+
+  .product-info {
+    padding: 28px 32px 36px;
+    border-top: 0.5px solid rgba(200,169,110,0.1);
+  }
+
+  .product-category {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 8px;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .product-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .product-price span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gray);
+    margin-left: 4px;
+  }
+
+  .product-cta {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s, background 0.3s;
+  }
+
+  .product-cta:hover { background: var(--gold-light); }
+
+  /* ABOUT */
+  .about {
+    padding: 140px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+    border-top: 0.5px solid rgba(200,169,110,0.1);
+  }
+
+  .about-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+  }
+
+  .about-visual-main {
+    width: 75%;
+    height: 100%;
+    background: linear-gradient(160deg, #222220 0%, #111110 100%);
+    border: 0.5px solid rgba(200,169,110,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-visual-accent {
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    width: 45%;
+    height: 55%;
+    background: rgba(200,169,110,0.06);
+    border: 0.5px solid rgba(200,169,110,0.2);
+  }
+
+  .about-mountain {
+    width: 80px;
+    opacity: 0.15;
+  }
+
+  .about-content .section-label { margin-bottom: 24px; }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 32px;
+  }
+
+  .about-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--gold);
+    border-left: 1px solid var(--gold);
+    padding-left: 24px;
+    margin-bottom: 32px;
+    opacity: 0.85;
+  }
+
+  .about-text {
+    font-size: 13px;
+    line-height: 2;
+    color: var(--gray);
+    margin-bottom: 48px;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 48px;
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* SUBSCRIPTION */
+  .subscription {
+    padding: 120px 60px;
+    background: #111110;
+    border-top: 0.5px solid rgba(200,169,110,0.1);
+    text-align: center;
+  }
+
+  .subscription .section-label { text-align: center; margin-bottom: 24px; }
+
+  .subscription-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .subscription-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .subscription-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 64px;
+  }
+
+  .subscription-plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin: 0 auto 48px;
+  }
+
+  .plan-card {
+    padding: 48px 36px;
+    background: #1A1A18;
+    border: 0.5px solid rgba(200,169,110,0.1);
+    text-align: left;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .plan-card:hover { border-color: rgba(200,169,110,0.4); }
+
+  .plan-card.featured {
+    border-color: rgba(200,169,110,0.4);
+    background: #1e1e1c;
+  }
+
+  .plan-featured-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--black);
+    padding: 5px 16px;
+  }
+
+  .plan-name {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+
+  .plan-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-period {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+
+  .plan-features li {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--gray);
+    padding: 8px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .plan-features li::before {
+    content: '—';
+    color: var(--gold);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .plan-btn {
+    width: 100%;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: 0.5px solid rgba(200,169,110,0.4);
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .plan-btn:hover, .plan-card.featured .plan-btn {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 80px 60px 48px;
+    border-top: 0.5px solid rgba(200,169,110,0.15);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+  }
+
+  .footer-brand .nav-logo {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer-social a {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+
+  .footer-social a:hover { opacity: 1; }
+
+  .footer-col-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 24px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-bottom {
+    padding: 32px 60px;
+    border-top: 0.5px solid rgba(200,169,110,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: var(--gray);
+    opacity: 0.4;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-legal a {
+    font-size: 11px;
+    color: var(--gray);
+    opacity: 0.4;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  .footer-legal a:hover { opacity: 0.8; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CRESTA</a>
+  <ul class="nav-links">
+    <li><a href="#produkty">Produkty</a></li>
+    <li><a href="#o-nas">O marce</a></li>
+    <li><a href="#subskrypcja">Subskrypcja</a></li>
+  </ul>
+  <a href="#" class="nav-cart">Koszyk (0)</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <p class="hero-tagline">Kawa premium · Polska · Est. 2025</p>
+  <h1 class="hero-title">Dotknij<br>szczytu <em>smaku.</em></h1>
+  <p class="hero-desc">Cresta. Od włoskiego słowa oznaczającego szczyt górskiego grzbietu — miejsce gdzie kończy się wysiłek, a zaczyna widok. Każda filiżanka to ten moment.</p>
+  <div class="hero-actions">
+    <a href="#produkty" class="btn-primary">Odkryj kolekcję</a>
+    <a href="#o-nas" class="btn-secondary">Nasza historia</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">Darmowa dostawa od 150 zł</div>
+  <div class="strip-item">Ameryka Południowa · Azja</div>
+  <div class="strip-item">100% Arabica w Alta</div>
+  <div class="strip-item">Subskrypcja miesięczna</div>
+  <div class="strip-item">Zwrot 30 dni</div>
+  <div class="strip-item">Darmowa dostawa od 150 zł</div>
+  <div class="strip-item">Ameryka Południowa · Azja</div>
+  <div class="strip-item">100% Arabica w Alta</div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="produkty">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Kolekcja</p>
+      <h2 class="section-title">Trzy szczyty,<br>jeden <em>charakter.</em></h2>
+    </div>
+    <a href="#" class="section-link">Wszystkie produkty</a>
+  </div>
+
+  <div class="products-grid">
+    <!-- Origini -->
+    <a href="origini.html" class="product-card reveal" style="text-decoration:none">
+      <div class="product-img-wrap">
+        <div class="product-placeholder">
+          <div class="product-placeholder-icon">
+            <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 2 L18 38 L2 38 Z" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.5"/></svg>
+          </div>
+          <span class="product-placeholder-name">ORIGINI</span>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-category">Kawa ziarnista · Blend łagodny</p>
+        <h3 class="product-name">Cresta Origini</h3>
+        <p class="product-desc">Mieszanka Ameryki Płd. i Azji. Niska kwasowość, kremowy smak, idealna na każdy poranek.</p>
+        <div class="product-footer">
+          <p class="product-price">od 39 zł <span>/ 250g</span></p>
+          <button class="product-cta">Do koszyka</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cima -->
+    <a href="cima.html" class="product-card reveal" style="text-decoration:none;transition-delay:0.15s">
+      <div class="product-img-wrap">
+        <div class="product-placeholder">
+          <div class="product-placeholder-icon">
+            <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 2 L18 38 L2 38 Z" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.5"/></svg>
+          </div>
+          <span class="product-placeholder-name">CIMA</span>
+        </div>
+      </div>
+      <div class="product-badge">Bestseller</div>
+      <div class="product-info">
+        <p class="product-category">Kawa ziarnista · Espresso</p>
+        <h3 class="product-name">Cresta Cima</h3>
+        <p class="product-desc">Intensywna, wyrazista, bezkompromisowa. Wysoka intensywność i słodycz — flagowy produkt marki.</p>
+        <div class="product-footer">
+          <p class="product-price">od 49 zł <span>/ 250g</span></p>
+          <button class="product-cta">Do koszyka</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Alta -->
+    <a href="alta.html" class="product-card reveal" style="text-decoration:none;transition-delay:0.3s">
+      <div class="product-img-wrap">
+        <div class="product-placeholder">
+          <div class="product-placeholder-icon">
+            <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 2 L18 38 L2 38 Z" fill="none" stroke="rgba(200,169,110,0.4)" stroke-width="0.5"/></svg>
+          </div>
+          <span class="product-placeholder-name">ALTA</span>
+        </div>
+      </div>
+      <div class="product-badge" style="background: transparent; color: var(--gold); border: 0.5px solid var(--gold);">Premium</div>
+      <div class="product-info">
+        <p class="product-category">100% Arabica · Limitowana</p>
+        <h3 class="product-name">Cresta Alta</h3>
+        <p class="product-desc">100% Arabica z Ameryki Południowej. Intensywny aromat, średnia kwasowość, wysoka słodycz. Edycja kolekcjonerska.</p>
+        <div class="product-footer">
+          <p class="product-price">od 79 zł <span>/ 250g</span></p>
+          <button class="product-cta">Do koszyka</button>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="o-nas">
+  <div class="about-visual reveal">
+    <div class="about-visual-main">
+      <svg class="about-mountain" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 L90 55 L10 55 Z" stroke="rgba(200,169,110,0.6)" stroke-width="0.5" fill="none"/>
+        <path d="M50 5 L68 30 L50 22 L32 30 Z" stroke="rgba(200,169,110,0.3)" stroke-width="0.5" fill="none"/>
+        <line x1="10" y1="55" x2="90" y2="55" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="about-visual-accent"></div>
+  </div>
+
+  <div class="about-content reveal">
+    <p class="section-label">O marce</p>
+    <h2 class="about-title">Gdzie kończy się<br>wysiłek, zaczyna<br><em>widok.</em></h2>
+    <blockquote class="about-quote">
+      "Cresta. Od włoskiego słowa oznaczającego szczyt górskiego grzbietu."
+    </blockquote>
+    <p class="about-text">
+      Miejsce gdzie kończy się wysiłek, a zaczyna widok. Każda filiżanka to ten moment. Wybieramy ziarna z Ameryki Południowej i Azji — precyzyjnie palone, starannie dobrane. Bez kompromisów.
+    </p>
+    <div class="about-stats">
+      <div>
+        <p class="stat-number">3</p>
+        <p class="stat-label">Linie produktów</p>
+      </div>
+      <div>
+        <p class="stat-number">4.8</p>
+        <p class="stat-label">Średnia ocena</p>
+      </div>
+      <div>
+        <p class="stat-number">2</p>
+        <p class="stat-label">Kontynenty ziaren</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTION -->
+<section class="subscription" id="subskrypcja">
+  <p class="section-label reveal">Subskrypcja</p>
+  <h2 class="subscription-title reveal">Kawa na<br><em>każdy miesiąc.</em></h2>
+  <p class="subscription-desc reveal">Wybierz swój plan, my dostarczymy Crestę pod drzwi. Zawsze świeża, zawsze na czas. Anuluj kiedy chcesz.</p>
+
+  <div class="subscription-plans reveal">
+    <div class="plan-card">
+      <p class="plan-name">Origini</p>
+      <p class="plan-price">49<span style="font-size:20px">zł</span></p>
+      <p class="plan-period">/ miesiąc · 250g</p>
+      <ul class="plan-features">
+        <li>Cresta Origini 250g</li>
+        <li>Darmowa dostawa</li>
+        <li>Anuluj w dowolnym momencie</li>
+      </ul>
+      <button class="plan-btn">Wybierz plan</button>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-featured-badge">Najpopularniejszy</div>
+      <p class="plan-name">Cima</p>
+      <p class="plan-price">69<span style="font-size:20px">zł</span></p>
+      <p class="plan-period">/ miesiąc · 500g</p>
+      <ul class="plan-features">
+        <li>Cresta Cima 500g</li>
+        <li>Darmowa dostawa</li>
+        <li>Priorytetowa obsługa</li>
+        <li>Anuluj w dowolnym momencie</li>
+      </ul>
+      <button class="plan-btn">Wybierz plan</button>
+    </div>
+
+    <div class="plan-card">
+      <p class="plan-name">Alta Collection</p>
+      <p class="plan-price">129<span style="font-size:20px">zł</span></p>
+      <p class="plan-period">/ miesiąc · zestaw 3 kaw</p>
+      <ul class="plan-features">
+        <li>Wszystkie 3 kawy (250g każda)</li>
+        <li>Darmowa dostawa</li>
+        <li>Dostęp do edycji limitowanych</li>
+        <li>Anuluj w dowolnym momencie</li>
+      </ul>
+      <button class="plan-btn">Wybierz plan</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">CRESTA</a>
+    <p class="footer-tagline">Dotknij szczytu smaku.<br>Każda filiżanka to ten moment.</p>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+    </div>
+  </div>
+
+  <div>
+    <p class="footer-col-title">Produkty</p>
+    <ul class="footer-links">
+      <li><a href="#">Cresta Origini</a></li>
+      <li><a href="#">Cresta Cima</a></li>
+      <li><a href="#">Cresta Alta</a></li>
+      <li><a href="#">Subskrypcja</a></li>
+      <li><a href="#">Karty podarunkowe</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="footer-col-title">Marka</p>
+    <ul class="footer-links">
+      <li><a href="#">O Crescie</a></li>
+      <li><a href="#">Filozofia</a></li>
+      <li><a href="#">Ziarna</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="footer-col-title">Pomoc</p>
+    <ul class="footer-links">
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Dostawa</a></li>
+      <li><a href="#">Zwroty</a></li>
+      <li><a href="#">Kontakt</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p class="footer-copy">© 2025 Cresta. Wszelkie prawa zastrzeżone.</p>
+  <div class="footer-legal">
+    <a href="#">Polityka prywatności</a>
+    <a href="#">Regulamin</a>
+    <a href="#">Cookies</a>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
