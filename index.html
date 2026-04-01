@@ -873,159 +873,82 @@
 
   /* ═══════════════ MOBILE ═══════════════ */
   html, body { overflow-x: hidden; max-width: 100%; }
-
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    z-index: 201;
-    padding: 6px;
-    background: none;
-    border: none;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: var(--gold);
-    border-radius: 1px;
-    transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease;
-    transform-origin: center;
-  }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-  .mob-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,26,24,0.98);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.23,1,0.32,1);
-  }
-  .mob-menu.open {
-    opacity: 1;
-    pointer-events: all;
-    transform: translateY(0);
-  }
-  .mob-menu a {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(26px,7vw,36px);
-    font-weight: 300;
-    color: var(--cream);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: color 0.2s, opacity 0.3s ease, transform 0.3s ease;
-  }
-  .mob-menu.open a { opacity: 1; transform: translateY(0); }
-  .mob-menu.open a:nth-child(1) { transition-delay: 0.05s; }
-  .mob-menu.open a:nth-child(2) { transition-delay: 0.10s; }
-  .mob-menu.open a:nth-child(3) { transition-delay: 0.15s; }
-  .mob-menu.open a:nth-child(4) { transition-delay: 0.20s; }
-  .mob-menu.open a:nth-child(5) { transition-delay: 0.22s; }
-  .mob-menu a:hover { color: var(--gold); }
-  .mob-menu .mob-cart {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 0.5px solid rgba(200,169,110,0.5);
-    padding: 12px 32px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: background 0.2s, opacity 0.3s ease 0.22s, transform 0.3s ease 0.22s;
-  }
-  .mob-menu.open .mob-cart { opacity: 1; transform: translateY(0); }
-  .mob-divider { width: 36px; height: 0.5px; background: rgba(200,169,110,0.25); opacity: 0; transition: opacity 0.3s ease 0.18s; }
-  .mob-menu.open .mob-divider { opacity: 1; }
-
-  nav { transition: background 0.3s; }
-  nav.nav-solid {
-    background: rgba(26,26,24,0.97) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  nav.nav-solid::before { opacity: 0 !important; }
-
-  @media (max-width: 768px) {
-    nav { padding: 18px 20px !important; }
-    .nav-links, .nav-cart { display: none !important; }
-    .nav-hamburger { display: flex; }
-
-    .hero { padding-left: 20px !important; padding-right: 20px !important; }
-    .hero-title { font-size: clamp(42px,11vw,64px) !important; }
-    .hero-tagline { font-size: 9px !important; }
-    .hero-desc { max-width: 100% !important; font-size: 13px !important; }
-    .hero-actions { flex-direction: column !important; gap: 14px !important; align-items: flex-start !important; }
-    .btn-primary { width: 100% !important; text-align: center !important; }
-    .hero-scroll { display: none !important; }
-
-    .products { padding: 64px 20px !important; }
-    .section-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
-    .section-title { font-size: clamp(26px,7vw,38px) !important; }
-    .products-grid { grid-template-columns: 1fr !important; }
-
-    .about { padding: 64px 20px !important; grid-template-columns: 1fr !important; gap: 40px !important; }
-    .about-visual { display: none !important; }
-    .about-title { font-size: clamp(26px,7vw,38px) !important; }
-    .about-stats { gap: 24px !important; }
-
-    .subscription { padding: 64px 20px !important; }
-    .subscription-title { font-size: clamp(26px,7vw,38px) !important; }
-    .subscription-plans { grid-template-columns: 1fr !important; }
-
-    footer { padding: 48px 20px !important; grid-template-columns: 1fr !important; flex-direction: column !important; gap: 28px !important; }
-    .footer-bottom { padding: 16px 20px !important; flex-direction: column !important; gap: 10px !important; text-align: center !important; }
-    .footer-legal { flex-wrap: wrap !important; justify-content: center !important; gap: 12px !important; }
-
-    .breadcrumb { padding: 88px 20px 0 !important; }
-    .product-hero { padding: 28px 20px 64px !important; grid-template-columns: 1fr !important; gap: 28px !important; }
-    .product-gallery { position: static !important; }
-    .product-main-img { aspect-ratio: 4/3 !important; }
-    .product-thumbnails { display: none !important; }
-    .product-name { font-size: clamp(34px,9vw,50px) !important; }
-    .product-info { padding-top: 0 !important; }
-    .purchase-row { flex-direction: column !important; }
-    .add-to-cart { width: 100% !important; }
-    .product-details { padding: 40px 20px 64px !important; }
-    .details-grid { grid-template-columns: 1fr !important; }
-    .detail-block { padding: 28px 18px !important; }
-    .related { padding: 40px 20px 64px !important; }
-    .related-grid { grid-template-columns: 1fr !important; }
-
-    .content { padding: 56px 20px !important; }
-    .intro { grid-template-columns: 1fr !important; gap: 32px !important; }
-    .values { padding: 0 20px 64px !important; }
-    .values-grid { grid-template-columns: 1fr !important; }
-    .origin { padding: 0 20px 64px !important; grid-template-columns: 1fr !important; }
-    .origin-visual { display: none !important; }
-    .cta-section { margin: 0 20px 64px !important; padding: 40px 18px !important; }
-    .divider { margin: 0 20px 64px !important; }
-
-    .layout { grid-template-columns: 1fr !important; gap: 0 !important; padding: 48px 20px 64px !important; }
-    .sidebar { display: none !important; }
-
-    .contact-layout { grid-template-columns: 1fr !important; }
-    .contact-info { padding: 48px 20px !important; }
-    .contact-form { padding: 36px 20px 48px !important; }
-
-    .doc-layout { grid-template-columns: 1fr !important; padding: 48px 20px 64px !important; }
-    .doc-nav { display: none !important; }
-
-    .hero.small-hero { padding: 120px 20px 48px !important; min-height: auto !important; }
+  .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:201; padding:6px; background:none; border:none; }
+  .nav-hamburger span { display:block; width:22px; height:1.5px; background:var(--gold); border-radius:1px; transition:transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin:center; }
+  .nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity:0; width:0; }
+  .nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+  .mob-menu { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; position:fixed; inset:0; background:rgba(26,26,24,0.98); z-index:200; opacity:0; pointer-events:none; transform:translateY(-10px); transition:opacity 0.35s ease, transform 0.35s cubic-bezier(0.23,1,0.32,1); }
+  .mob-menu.open { opacity:1; pointer-events:all; transform:translateY(0); }
+  .mob-menu a { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,36px); font-weight:300; color:var(--cream); text-decoration:none; letter-spacing:0.06em; opacity:0; transform:translateY(10px); transition:color 0.2s, opacity 0.3s ease, transform 0.3s ease; }
+  .mob-menu.open a { opacity:1; transform:translateY(0); }
+  .mob-menu.open a:nth-child(1){transition-delay:0.05s}
+  .mob-menu.open a:nth-child(2){transition-delay:0.10s}
+  .mob-menu.open a:nth-child(3){transition-delay:0.15s}
+  .mob-menu.open a:nth-child(4){transition-delay:0.20s}
+  .mob-menu.open a:nth-child(5){transition-delay:0.22s}
+  .mob-menu a:hover { color:var(--gold); }
+  .mob-menu .mob-cart { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); border:0.5px solid rgba(200,169,110,0.5); padding:12px 32px; opacity:0; transform:translateY(10px); transition:background 0.2s, opacity 0.3s ease 0.22s, transform 0.3s ease 0.22s; }
+  .mob-menu.open .mob-cart { opacity:1; transform:translateY(0); }
+  .mob-divider { width:36px; height:0.5px; background:rgba(200,169,110,0.25); opacity:0; transition:opacity 0.3s ease 0.18s; }
+  .mob-menu.open .mob-divider { opacity:1; }
+  nav { transition:background 0.3s; }
+  nav.nav-solid { background:rgba(26,26,24,0.97) !important; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+  nav.nav-solid::before { opacity:0 !important; }
+  @media (max-width:768px) {
+    nav { padding:18px 20px !important; }
+    .nav-links, .nav-cart { display:none !important; }
+    .nav-hamburger { display:flex; }
+    .hero { padding-left:20px !important; padding-right:20px !important; }
+    .hero-title { font-size:clamp(42px,11vw,64px) !important; }
+    .hero-tagline { font-size:9px !important; }
+    .hero-desc { max-width:100% !important; font-size:13px !important; }
+    .hero-actions { flex-direction:column !important; gap:14px !important; align-items:flex-start !important; }
+    .btn-primary { width:100% !important; text-align:center !important; }
+    .hero-scroll { display:none !important; }
+    .products { padding:64px 20px !important; }
+    .section-header { flex-direction:column !important; align-items:flex-start !important; gap:12px !important; }
+    .section-title { font-size:clamp(26px,7vw,38px) !important; }
+    .products-grid { grid-template-columns:1fr !important; }
+    .about { padding:64px 20px !important; grid-template-columns:1fr !important; gap:40px !important; }
+    .about-visual { display:none !important; }
+    .about-title { font-size:clamp(26px,7vw,38px) !important; }
+    .about-stats { gap:24px !important; }
+    .subscription { padding:64px 20px !important; }
+    .subscription-title { font-size:clamp(26px,7vw,38px) !important; }
+    .subscription-plans { grid-template-columns:1fr !important; }
+    footer { padding:48px 20px !important; grid-template-columns:1fr !important; flex-direction:column !important; gap:28px !important; }
+    .footer-bottom { padding:16px 20px !important; flex-direction:column !important; gap:10px !important; text-align:center !important; }
+    .footer-legal { flex-wrap:wrap !important; justify-content:center !important; gap:12px !important; }
+    .breadcrumb { padding:88px 20px 0 !important; }
+    .product-hero { padding:28px 20px 64px !important; grid-template-columns:1fr !important; gap:28px !important; }
+    .product-gallery { position:static !important; }
+    .product-main-img { aspect-ratio:4/3 !important; }
+    .product-thumbnails { display:none !important; }
+    .product-name { font-size:clamp(34px,9vw,50px) !important; }
+    .product-info { padding-top:0 !important; }
+    .purchase-row { flex-direction:column !important; }
+    .add-to-cart { width:100% !important; }
+    .product-details { padding:40px 20px 64px !important; }
+    .details-grid { grid-template-columns:1fr !important; }
+    .detail-block { padding:28px 18px !important; }
+    .related { padding:40px 20px 64px !important; }
+    .related-grid { grid-template-columns:1fr !important; }
+    .content { padding:56px 20px !important; }
+    .intro { grid-template-columns:1fr !important; gap:32px !important; }
+    .values { padding:0 20px 64px !important; }
+    .values-grid { grid-template-columns:1fr !important; }
+    .origin { padding:0 20px 64px !important; grid-template-columns:1fr !important; }
+    .origin-visual { display:none !important; }
+    .cta-section { margin:0 20px 64px !important; padding:40px 18px !important; }
+    .divider { margin:0 20px 64px !important; }
+    .layout { grid-template-columns:1fr !important; gap:0 !important; padding:48px 20px 64px !important; }
+    .sidebar { display:none !important; }
+    .contact-layout { grid-template-columns:1fr !important; }
+    .contact-info { padding:48px 20px !important; }
+    .contact-form { padding:36px 20px 48px !important; }
+    .doc-layout { grid-template-columns:1fr !important; padding:48px 20px 64px !important; }
+    .doc-nav { display:none !important; }
   }
 
 </style>
@@ -1061,8 +984,8 @@
   <h1 class="hero-title">Dotknij<br>szczytu <em>smaku.</em></h1>
   <p class="hero-desc">Cresta. Od włoskiego słowa oznaczającego szczyt górskiego grzbietu — miejsce gdzie kończy się wysiłek, a zaczyna widok. Każda filiżanka to ten moment.</p>
   <div class="hero-actions">
-    <a href="#produkty" class="btn-primary">Odkryj kolekcje</a>
-    <a href="#wybor" class="btn-secondary">Pomoz mi wybrac</a>
+    <a href="#produkty" class="btn-primary">Odkryj kolekcję</a>
+    <a href="#wybor" class="btn-secondary">Pomóż mi wybrać</a>
   </div>
 
   <div class="hero-scroll">
@@ -1074,19 +997,19 @@
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-track">
-    <div class="strip-item">Darmowa dostawa od 150 zl</div>
-    <div class="strip-item">Ameryka Poludniowa · Azja</div>
+    <div class="strip-item">Darmowa dostawa od 150 zł</div>
+    <div class="strip-item">Ameryka Południowa · Azja</div>
     <div class="strip-item">100% Arabica w Alta</div>
     <div class="strip-item">Subskrypcja opcjonalna</div>
     <div class="strip-item">Zwrot 30 dni</div>
-    <div class="strip-item">Wybierz kawe z pomoca AI</div>
+    <div class="strip-item">Wybierz kawę z pomocą AI</div>
     <div class="strip-item">Box degustacyjny</div>
-    <div class="strip-item">Darmowa dostawa od 150 zl</div>
-    <div class="strip-item">Ameryka Poludniowa · Azja</div>
+    <div class="strip-item">Darmowa dostawa od 150 zł</div>
+    <div class="strip-item">Ameryka Południowa · Azja</div>
     <div class="strip-item">100% Arabica w Alta</div>
     <div class="strip-item">Subskrypcja opcjonalna</div>
     <div class="strip-item">Zwrot 30 dni</div>
-    <div class="strip-item">Wybierz kawe z pomoca AI</div>
+    <div class="strip-item">Wybierz kawę z pomocą AI</div>
     <div class="strip-item">Box degustacyjny</div>
   </div>
 </div>
@@ -1098,7 +1021,7 @@
       <p class="section-label">Kolekcja</p>
       <h2 class="section-title">Trzy profile,<br>jeden <em>standard.</em></h2>
     </div>
-    <a href="#wybor" class="section-link">Pomoz mi wybrac</a>
+    <a href="#wybor" class="section-link">Pomóż mi wybrać</a>
   </div>
 
   <div class="products-grid">
@@ -1115,7 +1038,7 @@
       <div class="product-info">
         <p class="product-category">Blend codzienny · 500g i 1kg</p>
         <h3 class="product-name">Cresta Origini</h3>
-        <p class="product-desc">Lagodny entry point do marki. Mieszanka Ameryki Pld. i Azji o niskiej kwasowosci i sredniej intensywnosci — spokojna, codzienna, latwa do pokochania.</p>
+        <p class="product-desc">Łagodny blend na co dzień. Mieszanka Ameryki Południowej i Azji o niskiej kwasowości i średniej intensywności — spokojny, zrównoważony, łatwy do pokochania.</p>
         <div class="product-footer">
           <p class="product-price">od 37,99 zl <span>/ 500g</span></p>
           <button class="product-cta">Zobacz produkt</button>
@@ -1136,7 +1059,7 @@
       <div class="product-info">
         <p class="product-category">Flagowy wybor · 500g i 1kg</p>
         <h3 class="product-name">Cresta Cima</h3>
-        <p class="product-desc">Najbardziej uniwersalna kawa w kolekcji. Niska kwasowosc, wysoka intensywnosc i slodycz — wybierz ja, gdy chcesz najbezpieczniejszy i najbardziej pewny zakup.</p>
+        <p class="product-desc">Nasz flagowy produkt. Niska kwasowość, wysoka intensywność i słodycz — najbardziej pewny i najchętniej wybierany zakup w kolekcji Cresta.</p>
         <div class="product-footer">
           <p class="product-price">od 46,99 zl <span>/ 500g</span></p>
           <button class="product-cta">Zobacz produkt</button>
@@ -1157,7 +1080,7 @@
       <div class="product-info">
         <p class="product-category">100% Arabica · 500g i 1kg</p>
         <h3 class="product-name">Cresta Alta</h3>
-        <p class="product-desc">Najbardziej szlachetna pozycja w kolekcji. 100% Arabica z Ameryki Poludniowej o sredniej kwasowosci, wysokiej slodyczy i intensywnym aromacie.</p>
+        <p class="product-desc">Najbardziej szlachetna pozycja w kolekcji. 100% Arabica z Ameryki Południowej o średniej kwasowości, wysokiej słodyczy i intensywnym aromacie.</p>
         <div class="product-footer">
           <p class="product-price">od 49,99 zl <span>/ 500g</span></p>
           <button class="product-cta">Zobacz produkt</button>
@@ -1173,7 +1096,7 @@
       <div>
         <p class="section-label" style="margin-bottom:18px;">Wybierz z AI</p>
         <h2 class="about-title" style="font-size:clamp(34px,4vw,58px); margin-bottom:18px;">Ktora Cresta<br><em>jest dla Ciebie?</em></h2>
-        <p class="about-text" style="max-width:540px;">Nie musisz zgadywac. Na stronie warto dodac quiz AI i przycisk „Pomoz mi wybrac”, ktory skieruje klienta do Origini, Cima albo Alta na podstawie preferencji smaku, intensywnosci i sposobu picia kawy.</p>
+        <p class="about-text" style="max-width:540px;">Nie musisz zgadywac. Na stronie warto dodac quiz AI i przycisk „Pomóż mi wybrać”, ktory skieruje klienta do Origini, Cima albo Alta na podstawie preferencji smaku, intensywnosci i sposobu picia kawy.</p>
         <div class="hero-actions" style="margin-top:28px;">
           <a href="cima.html" class="btn-primary">Zacznij od bestsellera</a>
           <a href="kontakt.html" class="btn-secondary">Porozmawiaj z concierge</a>
@@ -1184,7 +1107,7 @@
   </div>
 
   <div class="about-content reveal">
-    <p class="section-label">Krotkie porownanie</p>
+    <p class="section-label">Krótkie porównanie</p>
     <h2 class="about-title">Prosto. Elegancko.<br><em>Bez chaosu.</em></h2>
     <div class="about-stats" style="grid-template-columns:1fr; gap:22px; margin-top:28px;">
       <div>
@@ -1223,7 +1146,7 @@
       "Cresta. Od wloskiego slowa oznaczajacego szczyt gorskiego grzbietu."
     </blockquote>
     <p class="about-text">
-      Cresta ma laczyc elegancje marki premium z prostota wyboru. Zamiast przytlaczac dziesiatkami wariantow, prowadzi klienta przez trzy wyrazne profile — od spokojnego entry pointu, przez flagowy bestseller, po najbardziej szlachetna 100% Arabike.
+      Cresta łączy elegancję marki premium z prostotą wyboru. Zamiast przytłaczać dziesiątkami wariantów, prowadzi klientów przez trzy wyraźne profile — od spokojnego wejścia, przez flagowy bestseller, po najbardziej szlachetną 100% Arabikę.
     </p>
     <div class="about-stats">
       <div>
@@ -1246,7 +1169,7 @@
 <section class="subscription" id="subskrypcja">
   <p class="section-label reveal">Opcjonalna subskrypcja</p>
   <h2 class="subscription-title reveal">Jesli chcesz,<br><em>mozemy pamietac za Ciebie.</em></h2>
-  <p class="subscription-desc reveal">Glowna sprzedaz Cresty opiera sie na zakupach jednorazowych. Subskrypcja pozostaje wygodna opcja dla tych, ktorzy chca miec swoja kawe zawsze na czas.</p>
+  <p class="subscription-desc reveal">Główna sprzedaż Cresty opiera się na zakupach jednorazowych. Subskrypcja pozostaje wygodną opcją dla tych, którzy chcą mieć swoją kawę zawsze na czas.</p>
 
   <div class="subscription-plans reveal">
     <div class="plan-card">
@@ -1255,10 +1178,10 @@
       <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
         <li>Regularna dostawa ulubionego blendu</li>
-        <li>Zakup bez pilnowania zapasu</li>
-        <li>Latwa zmiana lub anulowanie</li>
+        <li>Zakup bez pilnowania zapasów</li>
+        <li>Łatwa zmiana lub anulowanie</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcję</a>
     </div>
 
     <div class="plan-card featured">
@@ -1267,11 +1190,11 @@
       <p class="plan-price">od 79<span style="font-size:20px">zl</span></p>
       <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
-        <li>Flagowy produkt marki pod drzwi</li>
-        <li>Priorytetowa obsluga subskrypcji</li>
-        <li>Opcja pomijania lub zmiany miesiaca</li>
+        <li>Flagowy produkt marki pod Twoje drzwi</li>
+        <li>Priorytetowa obsługa subskrypcji</li>
+        <li>Opcja pominięcia lub zmiany miesiąca</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcję</a>
     </div>
 
     <div class="plan-card">
@@ -1279,11 +1202,11 @@
       <p class="plan-price">od 119<span style="font-size:20px">zl</span></p>
       <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
-        <li>Wygodna dostawa najwyzszej linii</li>
-        <li>Wczesniejszy dostep do nowosci</li>
+        <li>Wygodna dostawa najwyższej linii</li>
+        <li>Wcześniejszy dostęp do nowości</li>
         <li>Elastyczna modyfikacja planu</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcję</a>
     </div>
   </div>
 </section>
@@ -1298,7 +1221,7 @@
   <div class="about-content reveal">
     <p class="section-label">Osobny produkt</p>
     <h2 class="about-title">Box degustacyjny<br><em>na start i na prezent.</em></h2>
-    <p class="about-text">Osobny produkt, ktory pozwala poznac cala kolekcje bez zgadywania. Trzy rozne kawy po 500g — dla tych, ktorzy chca znalezc swoj profil lub podarowac komus elegancki rytual.</p>
+    <p class="about-text">Osobny produkt, który pozwala poznać całą kolekcję bez zgadywania. Trzy różne kawy w mniejszych porcjach — dla tych, którzy chcą znaleźć swój profil lub podarować komuś elegancki rytuał.</p>
     <div class="hero-actions" style="margin-top:32px;">
       <a href="kontakt.html" class="btn-primary">Zapytaj o box</a>
       <a href="faq.html" class="btn-secondary">Zobacz FAQ</a>
@@ -1309,7 +1232,7 @@
 <section class="subscription" id="newsletter" style="padding-top:60px;">
   <p class="section-label reveal">Newsletter</p>
   <h2 class="subscription-title reveal">Zostan blizej<br><em>nowosci Cresta.</em></h2>
-  <p class="subscription-desc reveal">Zapis do newslettera moze dawac rabat na pierwsze zamowienie oraz wczesniejszy dostep do premier. W przyszlosci warto przewidziec mozliwosc podpiecia zewnetrznej automatyzacji do obslugi mailingow.</p>
+  <p class="subscription-desc reveal">Zapisz się i odbierz rabat na pierwsze zamówienie. Bądź pierwszy, gdy pojawią się nowe edycje i limitowane premiery.</p>
   <div class="reveal" style="max-width:680px; margin:40px auto 0; display:flex; gap:14px; align-items:center;">
     <input type="email" placeholder="Twoj adres e-mail" style="flex:1; background:transparent; border:0.5px solid rgba(200,169,110,0.2); color:var(--cream); padding:16px 18px; font-family:inherit; font-size:14px;" />
     <button class="plan-btn" style="border:none; cursor:pointer;">Zapisz mnie</button>
@@ -1338,7 +1261,7 @@
   <div>
     <p class="footer-col-title">Marka</p>
     <ul class="footer-links">
-      <li><a href="o-marce.html">O Crescie</a></li>
+      <li><a href="o-marce.html">O Cresta</a></li>
       <li><a href="o-marce.html">Filozofia</a></li>
       <li><a href="#box-degustacyjny">Box degustacyjny</a></li>
     </ul>
@@ -1379,23 +1302,13 @@
 
 <script>
 (function(){
-  var menu = document.getElementById('mob-menu');
-  var btn = document.getElementById('mob-btn');
-  var nav = document.querySelector('nav');
-
-  window.mobToggle = function(){
-    var o = menu.classList.toggle('open');
-    btn.classList.toggle('open', o);
-    document.body.style.overflow = o ? 'hidden' : '';
-  };
-  window.mobClose = function(){
-    menu.classList.remove('open');
-    if(btn) btn.classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  function onScroll(){ if(nav) nav.classList.toggle('nav-solid', window.scrollY > 30); }
-  window.addEventListener('scroll', onScroll, {passive:true});
+  var menu=document.getElementById('mob-menu');
+  var btn=document.getElementById('mob-btn');
+  var nav=document.querySelector('nav');
+  window.mobToggle=function(){ var o=menu.classList.toggle('open'); btn.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; };
+  window.mobClose=function(){ menu.classList.remove('open'); if(btn) btn.classList.remove('open'); document.body.style.overflow=''; };
+  function onScroll(){ if(nav) nav.classList.toggle('nav-solid',window.scrollY>30); }
+  window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
 })();
 </script>
