@@ -38,9 +38,6 @@
   .info-content p:last-child { font-size: 14px; color: var(--cream); line-height: 1.6; }
   .info-content a { color: var(--cream); text-decoration: none; transition: color 0.3s; }
   .info-content a:hover { color: var(--gold); }
-  .social-links { display: flex; gap: 16px; margin-top: 48px; padding-top: 48px; border-top: 0.5px solid rgba(200,169,110,0.1); }
-  .social-link { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; opacity: 0.5; transition: opacity 0.3s; }
-  .social-link:hover { opacity: 1; }
 
   .contact-form { padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
   .form-label { font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.5; margin-bottom: 32px; }
@@ -63,18 +60,77 @@
   .footer-links a:hover { opacity: 0.8; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; position: relative; z-index: 200; padding: 4px; }
+  .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: transform 0.3s, opacity 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--black); z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--cream); text-decoration: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-cart { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 0.5px solid var(--gold); padding: 12px 32px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .nav-cart { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* Hero */
+    .hero { padding: 0 24px 60px; }
+    .hero-title { font-size: clamp(40px, 10vw, 64px); }
+
+    /* Content grids */
+    .intro { grid-template-columns: 1fr; gap: 40px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .origin { grid-template-columns: 1fr; }
+    .origin-visual { display: none; }
+    .origin-stats { flex-wrap: wrap; gap: 24px; }
+    .cta-section { margin: 0 24px 80px; padding: 48px 24px; }
+    .content { padding: 60px 24px; }
+    .values { padding: 0 24px 80px; }
+
+    /* FAQ */
+    .layout { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px 80px; }
+    .sidebar { position: static; display: none; }
+
+    /* Contact */
+    .contact-layout { grid-template-columns: 1fr; }
+    .contact-info { padding: 60px 24px; }
+    .contact-form { padding: 40px 24px 60px; }
+
+    /* Doc pages */
+    .doc-layout { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px 80px; }
+    .doc-nav { display: none; }
+
+    /* Footer */
+    footer { padding: 40px 24px 24px; flex-direction: column; gap: 16px; }
+    .footer-links { flex-wrap: wrap; gap: 12px 20px; }
+  }
+
 </style>
 </head>
 <body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMenu()">Strona główna</a>
+  <a href="index.html#produkty" onclick="closeMenu()">Produkty</a>
+  <a href="o-marce.html" onclick="closeMenu()">O marce</a>
+  <a href="kontakt.html" onclick="closeMenu()">Kontakt</a>
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo">CRESTA</a>
   <ul class="nav-links">
     <li><a href="index.html#produkty">Produkty</a></li>
     <li><a href="o-marce.html">O marce</a></li>
-    <li><a href="index.html#subskrypcja">Subskrypcja</a></li>
+    <li><a href="index.html#wybor">Wybierz swoja kawe</a></li>
   </ul>
   <a href="koszyk.html" class="nav-cart">Koszyk (0)</a>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <section class="hero">
@@ -85,71 +141,30 @@
 <div class="contact-layout">
   <div class="contact-info">
     <p class="info-label">Dane kontaktowe</p>
-    <h2 class="info-title">Jesteśmy tu<br>dla <em>Ciebie.</em></h2>
+    <h2 class="info-title">Jestesmy tu<br>dla <em>Ciebie.</em></h2>
+    <p style="max-width:520px;color:var(--gray);line-height:1.8;margin-top:20px;">Dane firmy i kontakt dla sklepu Cresta. Jesli masz pytanie o zamowienie, dostawe, zwrot, wspolprace lub oferte B2B, skontaktuj sie z nami bezposrednio.</p>
     <div class="info-items">
-      <div class="info-item">
-        <div class="info-icon">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3h10v8H2z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none" rx="1"/><path d="M2 3l5 5 5-5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg>
-        </div>
-        <div class="info-content">
-          <p>Email</p>
-          <p><a href="mailto:hello@cresta.coffee">hello@cresta.coffee</a></p>
-        </div>
-      </div>
-      <div class="info-item">
-        <div class="info-icon">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><path d="M7 4v3.5l2 2" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" stroke-linecap="round"/></svg>
-        </div>
-        <div class="info-content">
-          <p>Czas odpowiedzi</p>
-          <p>Do 24h w dni robocze</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <div class="info-icon">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C4.8 1 3 2.8 3 5c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><circle cx="7" cy="5" r="1.5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg>
-        </div>
-        <div class="info-content">
-          <p>Adres</p>
-          <p>Warszawa, Polska</p>
-        </div>
-      </div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="rgba(200,169,110,0.5)" stroke-width="0.8"/><path d="M4 5h6M4 7h6M4 9h4" stroke="rgba(200,169,110,0.5)" stroke-width="0.8"/></svg></div><div class="info-content"><p>Firma</p><p>LUKARO TRADING SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA</p></div></div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3h10v8H2z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none" rx="1"/><path d="M2 3l5 5 5-5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg></div><div class="info-content"><p>Email</p><p><a href="/cdn-cgi/l/email-protection#74161d01061b3418011f15061b5a0418"><span class="__cf_email__" data-cfemail="c2a0abb7b0ad82aeb7a9a3b0adecb2ae">[email&#160;protected]</span></a></p></div></div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2h2l1 2-1 1c.3 1 1 1.7 2 2l1-1 2 1v2c0 .6-.4 1-1 1A8 8 0 0 1 2 4c0-.6.4-1 1-1z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg></div><div class="info-content"><p>Telefon</p><p><a href="tel:+48695555903">+48 695-555-903</a></p></div></div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C4.8 1 3 2.8 3 5c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><circle cx="7" cy="5" r="1.5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg></div><div class="info-content"><p>Adres</p><p>Krolewska 53, 05-827 Grodzisk Mazowiecki, Polska</p></div></div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="rgba(200,169,110,0.5)" stroke-width="0.8"/><path d="M4 5h6M4 7h6M4 9h4" stroke="rgba(200,169,110,0.5)" stroke-width="0.8"/></svg></div><div class="info-content"><p>NIP</p><p>5291805253</p></div></div>
+      <div class="info-item"><div class="info-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><path d="M7 4v3.5l2 2" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" stroke-linecap="round"/></svg></div><div class="info-content"><p>Godziny kontaktu</p><p>Poniedzialek – Piatek · 10:00–18:00</p></div></div>
     </div>
-    <div class="social-links">
-      <a href="#" class="social-link">Instagram</a>
-      <a href="#" class="social-link">Facebook</a>
+    <div class="map-wrap" style="margin-top:48px;border:0.5px solid rgba(200,169,110,0.15);overflow:hidden;min-height:320px;background:#111110;">
+      <iframe src="https://www.google.com/maps?q=Krolewska+53,+05-827+Grodzisk+Mazowiecki,+Polska&output=embed" width="100%" height="320" style="border:0;filter:grayscale(100%) contrast(1.05);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 
   <div class="contact-form">
     <p class="form-label">Formularz kontaktowy</p>
-    <div class="form-group">
-      <label>Imię i nazwisko</label>
-      <input type="text" placeholder="Jan Kowalski" id="name">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" placeholder="jan@example.com" id="email">
-    </div>
-    <div class="form-group">
-      <label>Temat</label>
-      <select id="subject">
-        <option value="">Wybierz temat...</option>
-        <option>Zamówienie i dostawa</option>
-        <option>Zwrot lub reklamacja</option>
-        <option>Subskrypcja</option>
-        <option>Pytanie o produkt</option>
-        <option>Współpraca</option>
-        <option>Inne</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Wiadomość</label>
-      <textarea placeholder="Opisz swoje pytanie lub problem..." id="message"></textarea>
-    </div>
-    <button class="form-submit" onclick="submitForm()">Wyślij wiadomość</button>
-    <p class="form-note">Odpowiemy w ciągu 24 godzin w dni robocze.</p>
-    <div class="success-msg" id="success-msg">Dziękujemy za wiadomość — odezwiemy się wkrótce.</div>
+    <div class="form-group"><label>Imie i nazwisko</label><input type="text" placeholder="Jan Kowalski" id="name"></div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="jan@example.com" id="email"></div>
+    <div class="form-group"><label>Temat</label><select id="subject"><option value="">Wybierz temat...</option><option>Pytanie o produkt</option><option>Pomoc w wyborze kawy</option><option>Zamowienie i dostawa</option><option>Zwrot lub reklamacja</option><option>Subskrypcja</option><option>Wspolpraca</option><option>Inne</option></select></div>
+    <div class="form-group"><label>Wiadomosc</label><textarea placeholder="Opisz swoje pytanie lub problem..." id="message"></textarea></div>
+    <button class="form-submit" onclick="submitForm()">Wyslij wiadomosc</button>
+    <p class="form-note">Odpowiemy w ciagu 24 godzin w dni robocze.</p>
+    <div class="success-msg" id="success-msg">Dziekujemy za wiadomosc — odezwiemy sie wkrotce.</div>
   </div>
 </div>
 
@@ -163,16 +178,23 @@
   </ul>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+</script><script>
   function submitForm() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
-    if (!name || !email || !message) { alert('Wypełnij wszystkie wymagane pola.'); return; }
-    document.getElementById('success-msg').style.display = 'block';
-    document.querySelector('.form-submit').disabled = true;
-    document.querySelector('.form-submit').style.opacity = '0.5';
-  }
-</script>
-</body>
-</html>
+    if (!name || !email || !message) { alert('Wypełnij wszystkie wymagane pola.');

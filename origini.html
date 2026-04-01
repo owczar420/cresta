@@ -113,16 +113,79 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* HAMBURGER */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 200;
+    padding: 4px;
+  }
+  .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: transform 0.3s, opacity 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--black); z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; letter-spacing: 0.1em; color: var(--cream); text-decoration: none; transition: color 0.3s; }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-cart { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 0.5px solid var(--gold); padding: 12px 32px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .nav-cart { display: none; }
+    .nav-hamburger { display: flex; }
+
+    .breadcrumb { padding: 90px 24px 0; }
+
+    .product-hero { padding: 32px 24px 80px; grid-template-columns: 1fr; gap: 40px; }
+    .product-gallery { position: static; }
+    .product-main-img { aspect-ratio: 4/3; }
+    .product-thumbnails { display: none; }
+    .product-name { font-size: clamp(40px, 10vw, 60px); }
+    .product-info { padding-top: 0; }
+
+    .taste-bar-label { width: 72px; font-size: 10px; }
+    .options-grid { flex-wrap: wrap; }
+    .option-btn { flex: 1; min-width: 80px; text-align: center; }
+
+    .purchase-row { flex-wrap: wrap; }
+    .add-to-cart { min-width: 100%; }
+
+    .product-details { padding: 48px 24px 80px; }
+    .details-grid { grid-template-columns: 1fr; }
+    .detail-block { padding: 32px 24px; }
+
+    .related { padding: 48px 24px 80px; }
+    .related-grid { grid-template-columns: 1fr; }
+
+    footer { padding: 40px 24px 24px; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .footer-links { flex-wrap: wrap; gap: 12px 24px; }
+  }
+
 </style>
 </head>
 <body>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMenu()">Strona główna</a>
+  <a href="index.html#produkty" onclick="closeMenu()">Produkty</a>
+  <a href="o-marce.html" onclick="closeMenu()">O marce</a>
+  <a href="koszyk.html" class="mobile-cart" onclick="closeMenu()">Koszyk (0)</a>
+</div>
+
 <nav>
   <a href="index.html" class="nav-logo">CRESTA</a>
   <ul class="nav-links">
-    <li><a href="/">Produkty</a></li>
+    <li><a href="index.html#produkty">Produkty</a></li>
     <li><a href="o-marce.html">O marce</a></li>
-    <li><a href="index.html#subskrypcja">Subskrypcja</a></li>
+    <li><a href="index.html#wybor">Wybierz swoja kawe</a></li>
   </ul>
   <a href="#" class="nav-cart">Koszyk (0)</a>
 </nav>
@@ -130,7 +193,7 @@
 <div class="breadcrumb">
   <a href="index.html">Strona główna</a>
   <span>/</span>
-  <a href="/">Produkty</a>
+  <a href="index.html#produkty">Produkty</a>
   <span>/</span>
   <span class="breadcrumb-current">Cresta Origini</span>
 </div>
@@ -156,18 +219,12 @@
 
   <div class="product-info">
     <div class="product-badge-row">
-      <span class="badge badge-outline">Ziarnista + Mielona</span>
+      <span class="badge badge-outline">Ziarnista · 500g i 1kg</span>
       <span class="badge badge-outline">Blend łagodny</span>
     </div>
-    <p class="product-category">Kawa premium · Blend codzienny</p>
+    <p class="product-category">Kawa premium · Entry point</p>
     <h1 class="product-name">Cresta<br>Origini</h1>
-    <p class="product-subtitle">Łagodna, kremowa, na każdy poranek.</p>
-    <div class="product-rating">
-      <div class="stars">
-        <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star half"></div>
-      </div>
-      <span class="rating-count">4.6 / 5 · 35 opinii</span>
-    </div>
+    <p class="product-subtitle">Lagodna, codzienna, na spokojny start.</p>
     <div class="taste-profile">
       <p class="taste-title">Profil smakowy</p>
       <div class="taste-bars">
@@ -178,20 +235,15 @@
       </div>
     </div>
     <div class="price-section">
-      <p class="price-main" id="price-display">39 zł</p>
-      <p class="price-note">Cena za wybraną gramaturę · darmowa dostawa od 150 zł</p>
+      <p class="price-main" id="price-display">37,99 zl</p>
+      <p class="price-note">Cena za wybrana gramature · zakup jednorazowy jest glowna opcja</p>
     </div>
     <p class="options-label">Gramatura</p>
     <div class="options-grid">
-      <button class="option-btn active" data-price="39" onclick="selectOption(this)">250g</button>
-      <button class="option-btn" data-price="65" onclick="selectOption(this)">500g</button>
-      <button class="option-btn" data-price="115" onclick="selectOption(this)">1kg</button>
+      <button class="option-btn active" data-price="37.99" onclick="selectOption(this, 'weight')">500g</button>
+      <button class="option-btn" data-price="78.99" onclick="selectOption(this, 'weight')">1kg</button>
     </div>
-    <p class="options-label">Rodzaj</p>
-    <div class="type-grid">
-      <button class="option-btn active" onclick="selectType(this)">Ziarnista</button>
-      <button class="option-btn" onclick="selectType(this)">Mielona</button>
-    </div>
+    
     <div class="purchase-row">
       <div class="qty-control">
         <button class="qty-btn" onclick="changeQty(-1)">−</button>
@@ -200,7 +252,7 @@
       </div>
       <button class="add-to-cart">Dodaj do koszyka</button>
     </div>
-    <button class="subscribe-btn">Subskrybuj i oszczędź 15% <span class="subscribe-save">−15%</span></button>
+    <button class="subscribe-btn">Subskrypcja opcjonalna <span class="subscribe-save">opcjonalnie</span></button>
     <div class="delivery-info">
       <div class="delivery-row">
         <div class="delivery-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 9h9V2H1v7zM10 4h2l1 2v3h-3V4z" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><circle cx="3.5" cy="11" r="1" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/><circle cx="10.5" cy="11" r="1" stroke="rgba(200,169,110,0.5)" stroke-width="0.8" fill="none"/></svg></div>
@@ -221,38 +273,32 @@
 <section class="product-details">
   <div class="details-grid reveal">
     <div class="detail-block">
-      <p class="detail-label">Opis</p>
-      <h3 class="detail-title">Kawa która zaczyna dzień</h3>
-      <p class="detail-text">Cresta Origini to łagodny blend z Ameryki Południowej i Azji — entry point kolekcji dla tych, którzy cenią kremowy smak bez przytłaczającej intensywności. Niska kwasowość, naturalna słodycz, aksamitna tekstura.</p>
+      <p class="detail-label">Pozycjonowanie</p>
+      <h3 class="detail-title">Jak komunikowac ten produkt</h3>
+      <p class="detail-text">Origini ma byc najlatwiejsza do wejscia — to kawa, od ktorej najprosciej zaczac relacje z marka.</p>
     </div>
     <div class="detail-block">
-      <p class="detail-label">Skład i origin</p>
-      <h3 class="detail-title">Ziarna z dwóch kontynentów</h3>
+      <p class="detail-label">Sklad i origin</p>
+      <h3 class="detail-title">Profil produktu</h3>
       <ul class="detail-list">
-        <li>Mieszanka Ameryki Południowej i Azji</li>
-        <li>Niska kwasowość, kremowy profil</li>
-        <li>Jasne i precyzyjne palenie</li>
-        <li>Przechowywać w chłodnym, suchym miejscu</li>
+        <li>Mieszanka Ameryki Poludniowej i Azji</li>
+        <li>Niska kwasowosc, srednia intensywnosc</li>
+        <li>Codzienny, zbalansowany charakter</li>
+        <li>Dostepna w 500g i 1kg</li>
       </ul>
     </div>
     <div class="detail-block">
       <p class="detail-label">Parzenie</p>
       <h3 class="detail-title">Polecane metody</h3>
-      <ul class="detail-list">
-        <li>Drip / przelewowa — wydobywa kremowość</li>
-        <li>French press — pełna, miękka tekstura</li>
-        <li>Espresso — łagodne, bez goryczki</li>
-        <li>Cold brew — naturalnie słodki profil</li>
-      </ul>
+      <p class="detail-text">Ekspres automatyczny, kolba, kawiarka i codzienne parzenie domowe.</p>
     </div>
     <div class="detail-block">
-      <p class="detail-label">Dostępne warianty</p>
+      <p class="detail-label">Dostepne warianty</p>
       <h3 class="detail-title">Gramatura i format</h3>
       <ul class="detail-list">
-        <li>250g — idealna na start</li>
-        <li>500g — codzienny wybór</li>
-        <li>1kg — dla regularnych miłośników</li>
-        <li>Ziarnista i mielona w każdej gramaturze</li>
+        <li>500g — podstawowy wariant zakupu</li>
+        <li>1kg — dla regularnych zamowien i stalych rytualow</li>
+        <li>Na ten moment oferta obejmuje kawe ziarnista</li>
       </ul>
     </div>
   </div>
@@ -264,11 +310,11 @@
   <div class="related-grid reveal">
     <a href="cima.html" class="related-card">
       <div class="related-img"><span class="related-img-label">CIMA</span></div>
-      <div><p class="related-name">Cresta Cima</p><p class="related-desc">Blend espresso · flagowy</p><p class="related-price">od 49 zł</p></div>
+      <div><p class="related-name">Cresta Cima</p><p class="related-desc">Blend espresso · flagowy</p><p class="related-price">od 49,99 zl</p></div>
     </a>
     <a href="alta.html" class="related-card">
       <div class="related-img"><span class="related-img-label">ALTA</span></div>
-      <div><p class="related-name">Cresta Alta</p><p class="related-desc">100% Arabica · limitowana</p><p class="related-price">od 79 zł</p></div>
+      <div><p class="related-name">Cresta Alta</p><p class="related-desc">100% Arabica · premium</p><p class="related-price">od 49,99 zl</p></div>
     </a>
   </div>
 </section>
@@ -284,13 +330,30 @@
 </footer>
 
 <script>
-  let qty = 1, currentPrice = 39;
+  let qty = 1;
+  function updatePrice() {
+    const activeWeight = document.querySelector('.options-grid .option-btn.active');
+    const unitPrice = activeWeight ? parseFloat(activeWeight.dataset.price || '37.99') : 37.99;
+    document.getElementById('price-display').textContent = (unitPrice * qty).toFixed(2).replace('.', ',') + ' zl';
+  }
   function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qty').textContent = qty; updatePrice(); }
-  function selectOption(btn) { btn.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentPrice = parseInt(btn.dataset.price); updatePrice(); }
-  function selectType(btn) { btn.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
-  function updatePrice() { document.getElementById('price-display').textContent = (currentPrice * qty) + ' zł'; }
+  function selectOption(btn, type) { btn.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); updatePrice(); }
   const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
 </script>
 </body>
 </html>

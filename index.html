@@ -258,31 +258,52 @@
   }
 
   /* STRIP */
-  .strip {
-    border-top: 0.5px solid rgba(200,169,110,0.2);
-    border-bottom: 0.5px solid rgba(200,169,110,0.2);
-    padding: 20px 60px;
-    display: flex;
-    gap: 60px;
-    overflow: hidden;
-  }
 
-  .strip-item {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.6;
-    white-space: nowrap;
+  .strip {
     display: flex;
     align-items: center;
-    gap: 20px;
+    overflow: hidden;
+    border-top: 0.5px solid rgba(200,169,110,0.1);
+    border-bottom: 0.5px solid rgba(200,169,110,0.1);
+    background: rgba(245,242,237,0.02);
+    white-space: nowrap;
+  }
+
+  .strip-track {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+    animation: stripLoop 28s linear infinite;
+  }
+
+  .strip:hover .strip-track { animation-play-state: paused; }
+
+  .strip-item {
+    flex: 0 0 auto;
+    padding: 18px 36px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    position: relative;
   }
 
   .strip-item::before {
-    content: '◆';
-    font-size: 6px;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1px;
+    height: 10px;
+    background: rgba(200,169,110,0.2);
+    transform: translateY(-50%);
+  }
+
+  @keyframes stripLoop {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* PRODUCTS */
@@ -837,9 +858,131 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* HAMBURGER */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 200;
+    padding: 4px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* MOBILE MENU OVERLAY */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .mobile-menu a:hover { color: var(--gold); }
+
+  .mobile-menu .mobile-cart {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--gold);
+    padding: 12px 32px;
+  }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .nav-cart { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* HERO */
+    .hero { padding: 0 24px 80px; min-height: 100svh; }
+    .hero-title { font-size: clamp(52px, 14vw, 80px); }
+    .hero-desc { font-size: 13px; max-width: 100%; }
+    .hero-actions { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
+    .hero-scroll { display: none; }
+
+    /* STRIP */
+    .strip { padding: 16px 0; }
+
+    /* PRODUCTS */
+    .products { padding: 80px 24px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 48px; }
+    .section-title { font-size: clamp(32px, 8vw, 48px); }
+    .products-grid { grid-template-columns: 1fr; gap: 2px; }
+    .product-info { padding: 20px 24px 28px; }
+    .product-name { font-size: 22px; }
+
+    /* ABOUT */
+    .about { padding: 80px 24px; grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { display: none; }
+    .about-title { font-size: clamp(32px, 8vw, 48px); }
+    .about-stats { gap: 32px; }
+    .stat-number { font-size: 36px; }
+
+    /* SUBSCRIPTION */
+    .subscription { padding: 80px 24px; }
+    .subscription-title { font-size: clamp(32px, 8vw, 48px); }
+    .subscription-plans { grid-template-columns: 1fr; max-width: 100%; gap: 2px; }
+    .plan-card { padding: 36px 24px; }
+
+    /* FOOTER */
+    footer { padding: 60px 24px 48px; grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { padding: 24px 24px; flex-direction: column; gap: 16px; text-align: center; }
+    .footer-legal { gap: 20px; flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: clamp(44px, 13vw, 64px); }
+    .hero-tagline { font-size: 9px; }
+    .about-stats { flex-direction: column; gap: 24px; }
+  }
 </style>
 </head>
 <body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#produkty" onclick="closeMenu()">Produkty</a>
+  <a href="o-marce.html" onclick="closeMenu()">O marce</a>
+  <a href="#wybor" onclick="closeMenu()">Wybierz kawę</a>
+  <a href="koszyk.html" class="mobile-cart" onclick="closeMenu()">Koszyk (0)</a>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -847,9 +990,14 @@
   <ul class="nav-links">
     <li><a href="#produkty">Produkty</a></li>
     <li><a href="o-marce.html">O marce</a></li>
-    <li><a href="#subskrypcja">Subskrypcja</a></li>
+    <li><a href="#wybor">Wybierz swoja kawe</a></li>
   </ul>
   <a href="koszyk.html" class="nav-cart">Koszyk (0)</a>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -857,12 +1005,12 @@
   <div class="hero-bg"></div>
   <div class="hero-lines"></div>
 
-  <p class="hero-tagline">Kawa premium · Polska · Est. 2025</p>
+  <p class="hero-tagline">Kawa premium · 3 profile · 500g i 1kg</p>
   <h1 class="hero-title">Dotknij<br>szczytu <em>smaku.</em></h1>
   <p class="hero-desc">Cresta. Od włoskiego słowa oznaczającego szczyt górskiego grzbietu — miejsce gdzie kończy się wysiłek, a zaczyna widok. Każda filiżanka to ten moment.</p>
   <div class="hero-actions">
-    <a href="#produkty" class="btn-primary">Odkryj kolekcję</a>
-    <a href="o-marce.html" class="btn-secondary">Nasza historia</a>
+    <a href="#produkty" class="btn-primary">Odkryj kolekcje</a>
+    <a href="#wybor" class="btn-secondary">Pomoz mi wybrac</a>
   </div>
 
   <div class="hero-scroll">
@@ -873,14 +1021,22 @@
 
 <!-- STRIP -->
 <div class="strip">
-  <div class="strip-item">Darmowa dostawa od 150 zł</div>
-  <div class="strip-item">Ameryka Południowa · Azja</div>
-  <div class="strip-item">100% Arabica w Alta</div>
-  <div class="strip-item">Subskrypcja miesięczna</div>
-  <div class="strip-item">Zwrot 30 dni</div>
-  <div class="strip-item">Darmowa dostawa od 150 zł</div>
-  <div class="strip-item">Ameryka Południowa · Azja</div>
-  <div class="strip-item">100% Arabica w Alta</div>
+  <div class="strip-track">
+    <div class="strip-item">Darmowa dostawa od 150 zl</div>
+    <div class="strip-item">Ameryka Poludniowa · Azja</div>
+    <div class="strip-item">100% Arabica w Alta</div>
+    <div class="strip-item">Subskrypcja opcjonalna</div>
+    <div class="strip-item">Zwrot 30 dni</div>
+    <div class="strip-item">Wybierz kawe z pomoca AI</div>
+    <div class="strip-item">Box degustacyjny</div>
+    <div class="strip-item">Darmowa dostawa od 150 zl</div>
+    <div class="strip-item">Ameryka Poludniowa · Azja</div>
+    <div class="strip-item">100% Arabica w Alta</div>
+    <div class="strip-item">Subskrypcja opcjonalna</div>
+    <div class="strip-item">Zwrot 30 dni</div>
+    <div class="strip-item">Wybierz kawe z pomoca AI</div>
+    <div class="strip-item">Box degustacyjny</div>
+  </div>
 </div>
 
 <!-- PRODUCTS -->
@@ -888,13 +1044,12 @@
   <div class="section-header reveal">
     <div>
       <p class="section-label">Kolekcja</p>
-      <h2 class="section-title">Trzy szczyty,<br>jeden <em>charakter.</em></h2>
+      <h2 class="section-title">Trzy profile,<br>jeden <em>standard.</em></h2>
     </div>
-    <a href="index.html#produkty" class="section-link">Wszystkie produkty</a>
+    <a href="#wybor" class="section-link">Pomoz mi wybrac</a>
   </div>
 
   <div class="products-grid">
-    <!-- Origini -->
     <a href="origini.html" class="product-card reveal" style="text-decoration:none">
       <div class="product-img-wrap">
         <div class="product-placeholder">
@@ -904,18 +1059,18 @@
           <span class="product-placeholder-name">ORIGINI</span>
         </div>
       </div>
+      <div class="product-badge" style="background: transparent; color: var(--gold); border: 0.5px solid rgba(200,169,110,0.35);">Na start</div>
       <div class="product-info">
-        <p class="product-category">Kawa ziarnista · Blend łagodny</p>
+        <p class="product-category">Blend codzienny · 500g i 1kg</p>
         <h3 class="product-name">Cresta Origini</h3>
-        <p class="product-desc">Mieszanka Ameryki Płd. i Azji. Niska kwasowość, kremowy smak, idealna na każdy poranek.</p>
+        <p class="product-desc">Lagodny entry point do marki. Mieszanka Ameryki Pld. i Azji o niskiej kwasowosci i sredniej intensywnosci — spokojna, codzienna, latwa do pokochania.</p>
         <div class="product-footer">
-          <p class="product-price">od 39 zł <span>/ 250g</span></p>
-          <button class="product-cta">Do koszyka</button>
+          <p class="product-price">od 37,99 zl <span>/ 500g</span></p>
+          <button class="product-cta">Zobacz produkt</button>
         </div>
       </div>
     </a>
 
-    <!-- Cima -->
     <a href="cima.html" class="product-card reveal" style="text-decoration:none;transition-delay:0.15s">
       <div class="product-img-wrap">
         <div class="product-placeholder">
@@ -927,17 +1082,16 @@
       </div>
       <div class="product-badge">Bestseller</div>
       <div class="product-info">
-        <p class="product-category">Kawa ziarnista · Espresso</p>
+        <p class="product-category">Flagowy wybor · 500g i 1kg</p>
         <h3 class="product-name">Cresta Cima</h3>
-        <p class="product-desc">Intensywna, wyrazista, bezkompromisowa. Wysoka intensywność i słodycz — flagowy produkt marki.</p>
+        <p class="product-desc">Najbardziej uniwersalna kawa w kolekcji. Niska kwasowosc, wysoka intensywnosc i slodycz — wybierz ja, gdy chcesz najbezpieczniejszy i najbardziej pewny zakup.</p>
         <div class="product-footer">
-          <p class="product-price">od 49 zł <span>/ 250g</span></p>
-          <button class="product-cta">Do koszyka</button>
+          <p class="product-price">od 46,99 zl <span>/ 500g</span></p>
+          <button class="product-cta">Zobacz produkt</button>
         </div>
       </div>
     </a>
 
-    <!-- Alta -->
     <a href="alta.html" class="product-card reveal" style="text-decoration:none;transition-delay:0.3s">
       <div class="product-img-wrap">
         <div class="product-placeholder">
@@ -949,15 +1103,51 @@
       </div>
       <div class="product-badge" style="background: transparent; color: var(--gold); border: 0.5px solid var(--gold);">Premium</div>
       <div class="product-info">
-        <p class="product-category">100% Arabica · Limitowana</p>
+        <p class="product-category">100% Arabica · 500g i 1kg</p>
         <h3 class="product-name">Cresta Alta</h3>
-        <p class="product-desc">100% Arabica z Ameryki Południowej. Intensywny aromat, średnia kwasowość, wysoka słodycz. Edycja kolekcjonerska.</p>
+        <p class="product-desc">Najbardziej szlachetna pozycja w kolekcji. 100% Arabica z Ameryki Poludniowej o sredniej kwasowosci, wysokiej slodyczy i intensywnym aromacie.</p>
         <div class="product-footer">
-          <p class="product-price">od 79 zł <span>/ 250g</span></p>
-          <button class="product-cta">Do koszyka</button>
+          <p class="product-price">od 49,99 zl <span>/ 500g</span></p>
+          <button class="product-cta">Zobacz produkt</button>
         </div>
       </div>
     </a>
+  </div>
+</section>
+
+<section class="about" id="wybor" style="padding-top:40px;">
+  <div class="about-visual reveal">
+    <div class="about-visual-main" style="padding:56px 44px; align-items:flex-start; justify-content:flex-start;">
+      <div>
+        <p class="section-label" style="margin-bottom:18px;">Wybierz z AI</p>
+        <h2 class="about-title" style="font-size:clamp(34px,4vw,58px); margin-bottom:18px;">Ktora Cresta<br><em>jest dla Ciebie?</em></h2>
+        <p class="about-text" style="max-width:540px;">Nie musisz zgadywac. Na stronie warto dodac quiz AI i przycisk „Pomoz mi wybrac”, ktory skieruje klienta do Origini, Cima albo Alta na podstawie preferencji smaku, intensywnosci i sposobu picia kawy.</p>
+        <div class="hero-actions" style="margin-top:28px;">
+          <a href="cima.html" class="btn-primary">Zacznij od bestsellera</a>
+          <a href="kontakt.html" class="btn-secondary">Porozmawiaj z concierge</a>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual-accent"></div>
+  </div>
+
+  <div class="about-content reveal">
+    <p class="section-label">Krotkie porownanie</p>
+    <h2 class="about-title">Prosto. Elegancko.<br><em>Bez chaosu.</em></h2>
+    <div class="about-stats" style="grid-template-columns:1fr; gap:22px; margin-top:28px;">
+      <div>
+        <p class="stat-number" style="font-size:20px; letter-spacing:0.08em;">Origini</p>
+        <p class="stat-label" style="max-width:460px;">Na start. Lagodny, codzienny blend o niskiej kwasowosci i sredniej intensywnosci.</p>
+      </div>
+      <div>
+        <p class="stat-number" style="font-size:20px; letter-spacing:0.08em;">Cima</p>
+        <p class="stat-label" style="max-width:460px;">Bestseller. Najbardziej uniwersalna kawa w kolekcji — intensywniejsza, slodsza, najlatwiejsza do polecenia.</p>
+      </div>
+      <div>
+        <p class="stat-number" style="font-size:20px; letter-spacing:0.08em;">Alta</p>
+        <p class="stat-label" style="max-width:460px;">Najwyzsza linia. 100% Arabica dla tych, ktorzy chca bardziej szlachetnego i premium charakteru.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -978,23 +1168,23 @@
     <p class="section-label">O marce</p>
     <h2 class="about-title">Gdzie kończy się<br>wysiłek, zaczyna<br><em>widok.</em></h2>
     <blockquote class="about-quote">
-      "Cresta. Od włoskiego słowa oznaczającego szczyt górskiego grzbietu."
+      "Cresta. Od wloskiego slowa oznaczajacego szczyt gorskiego grzbietu."
     </blockquote>
     <p class="about-text">
-      Miejsce gdzie kończy się wysiłek, a zaczyna widok. Każda filiżanka to ten moment. Wybieramy ziarna z Ameryki Południowej i Azji — precyzyjnie palone, starannie dobrane. Bez kompromisów.
+      Cresta ma laczyc elegancje marki premium z prostota wyboru. Zamiast przytlaczac dziesiatkami wariantow, prowadzi klienta przez trzy wyrazne profile — od spokojnego entry pointu, przez flagowy bestseller, po najbardziej szlachetna 100% Arabike.
     </p>
     <div class="about-stats">
       <div>
         <p class="stat-number">3</p>
-        <p class="stat-label">Linie produktów</p>
+        <p class="stat-label">Glowne linie kaw</p>
       </div>
       <div>
-        <p class="stat-number">4.8</p>
-        <p class="stat-label">Średnia ocena</p>
+        <p class="stat-number">500g</p>
+        <p class="stat-label">Punkt startowy oferty</p>
       </div>
       <div>
-        <p class="stat-number">2</p>
-        <p class="stat-label">Kontynenty ziaren</p>
+        <p class="stat-number">1kg</p>
+        <p class="stat-label">Wariant dla stalych rytualow</p>
       </div>
     </div>
   </div>
@@ -1002,49 +1192,75 @@
 
 <!-- SUBSCRIPTION -->
 <section class="subscription" id="subskrypcja">
-  <p class="section-label reveal">Subskrypcja</p>
-  <h2 class="subscription-title reveal">Kawa na<br><em>każdy miesiąc.</em></h2>
-  <p class="subscription-desc reveal">Wybierz swój plan, my dostarczymy Crestę pod drzwi. Zawsze świeża, zawsze na czas. Anuluj kiedy chcesz.</p>
+  <p class="section-label reveal">Opcjonalna subskrypcja</p>
+  <h2 class="subscription-title reveal">Jesli chcesz,<br><em>mozemy pamietac za Ciebie.</em></h2>
+  <p class="subscription-desc reveal">Glowna sprzedaz Cresty opiera sie na zakupach jednorazowych. Subskrypcja pozostaje wygodna opcja dla tych, ktorzy chca miec swoja kawe zawsze na czas.</p>
 
   <div class="subscription-plans reveal">
     <div class="plan-card">
-      <p class="plan-name">Origini</p>
-      <p class="plan-price">49<span style="font-size:20px">zł</span></p>
-      <p class="plan-period">/ miesiąc · 250g</p>
+      <p class="plan-name">Origini Repeat</p>
+      <p class="plan-price">od 65<span style="font-size:20px">zl</span></p>
+      <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
-        <li>Cresta Origini 250g</li>
-        <li>Darmowa dostawa</li>
-        <li>Anuluj w dowolnym momencie</li>
+        <li>Regularna dostawa ulubionego blendu</li>
+        <li>Zakup bez pilnowania zapasu</li>
+        <li>Latwa zmiana lub anulowanie</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz plan</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
     </div>
 
     <div class="plan-card featured">
-      <div class="plan-featured-badge">Najpopularniejszy</div>
-      <p class="plan-name">Cima</p>
-      <p class="plan-price">69<span style="font-size:20px">zł</span></p>
-      <p class="plan-period">/ miesiąc · 500g</p>
+      <div class="plan-featured-badge">Najczesciej wybierana</div>
+      <p class="plan-name">Cima Repeat</p>
+      <p class="plan-price">od 79<span style="font-size:20px">zl</span></p>
+      <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
-        <li>Cresta Cima 500g</li>
-        <li>Darmowa dostawa</li>
-        <li>Priorytetowa obsługa</li>
-        <li>Anuluj w dowolnym momencie</li>
+        <li>Flagowy produkt marki pod drzwi</li>
+        <li>Priorytetowa obsluga subskrypcji</li>
+        <li>Opcja pomijania lub zmiany miesiaca</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz plan</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
     </div>
 
     <div class="plan-card">
-      <p class="plan-name">Alta Collection</p>
-      <p class="plan-price">129<span style="font-size:20px">zł</span></p>
-      <p class="plan-period">/ miesiąc · zestaw 3 kaw</p>
+      <p class="plan-name">Alta Repeat</p>
+      <p class="plan-price">od 119<span style="font-size:20px">zl</span></p>
+      <p class="plan-period">/ miesiac · 500g</p>
       <ul class="plan-features">
-        <li>Wszystkie 3 kawy (250g każda)</li>
-        <li>Darmowa dostawa</li>
-        <li>Dostęp do edycji limitowanych</li>
-        <li>Anuluj w dowolnym momencie</li>
+        <li>Wygodna dostawa najwyzszej linii</li>
+        <li>Wczesniejszy dostep do nowosci</li>
+        <li>Elastyczna modyfikacja planu</li>
       </ul>
-      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz plan</a>
+      <a href="kontakt.html" class="plan-btn" style="display:block;text-align:center;text-decoration:none;">Wybierz opcje</a>
     </div>
+  </div>
+</section>
+
+<section class="about" id="box-degustacyjny" style="padding-top:40px; border-top:0.5px solid rgba(200,169,110,0.1);">
+  <div class="about-visual reveal">
+    <div class="about-visual-main">
+      <div class="product-placeholder"><span class="product-placeholder-name">BOX</span></div>
+    </div>
+    <div class="about-visual-accent"></div>
+  </div>
+  <div class="about-content reveal">
+    <p class="section-label">Osobny produkt</p>
+    <h2 class="about-title">Box degustacyjny<br><em>na start i na prezent.</em></h2>
+    <p class="about-text">Osobny produkt, ktory pozwala poznac cala kolekcje bez zgadywania. Trzy rozne kawy po 500g — dla tych, ktorzy chca znalezc swoj profil lub podarowac komus elegancki rytual.</p>
+    <div class="hero-actions" style="margin-top:32px;">
+      <a href="kontakt.html" class="btn-primary">Zapytaj o box</a>
+      <a href="faq.html" class="btn-secondary">Zobacz FAQ</a>
+    </div>
+  </div>
+</section>
+
+<section class="subscription" id="newsletter" style="padding-top:60px;">
+  <p class="section-label reveal">Newsletter</p>
+  <h2 class="subscription-title reveal">Zostan blizej<br><em>nowosci Cresta.</em></h2>
+  <p class="subscription-desc reveal">Zapis do newslettera moze dawac rabat na pierwsze zamowienie oraz wczesniejszy dostep do premier. W przyszlosci warto przewidziec mozliwosc podpiecia zewnetrznej automatyzacji do obslugi mailingow.</p>
+  <div class="reveal" style="max-width:680px; margin:40px auto 0; display:flex; gap:14px; align-items:center;">
+    <input type="email" placeholder="Twoj adres e-mail" style="flex:1; background:transparent; border:0.5px solid rgba(200,169,110,0.2); color:var(--cream); padding:16px 18px; font-family:inherit; font-size:14px;" />
+    <button class="plan-btn" style="border:none; cursor:pointer;">Zapisz mnie</button>
   </div>
 </section>
 
@@ -1053,10 +1269,7 @@
   <div class="footer-brand">
     <a href="index.html" class="nav-logo">CRESTA</a>
     <p class="footer-tagline">Dotknij szczytu smaku.<br>Każda filiżanka to ten moment.</p>
-    <div class="footer-social">
-      <a href="https://instagram.com" target="_blank">Instagram</a>
-      <a href="https://facebook.com" target="_blank">Facebook</a>
-    </div>
+    
   </div>
 
   <div>
@@ -1066,7 +1279,7 @@
       <li><a href="cima.html">Cresta Cima</a></li>
       <li><a href="alta.html">Cresta Alta</a></li>
       <li><a href="index.html#subskrypcja">Subskrypcja</a></li>
-      <li><a href="kontakt.html">Karty podarunkowe</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
     </ul>
   </div>
 
@@ -1075,7 +1288,7 @@
     <ul class="footer-links">
       <li><a href="o-marce.html">O Crescie</a></li>
       <li><a href="o-marce.html">Filozofia</a></li>
-      <li><a href="o-marce.html">Ziarna</a></li>
+      <li><a href="#box-degustacyjny">Box degustacyjny</a></li>
     </ul>
   </div>
 
@@ -1110,6 +1323,22 @@
   }, { threshold: 0.1 });
 
   reveals.forEach(el => observer.observe(el));
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 </script>
 
 </body>
