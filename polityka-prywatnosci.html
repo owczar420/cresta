@@ -42,96 +42,9 @@
   .footer-links { display: flex; gap: 32px; list-style: none; }
   .footer-links a { font-size: 11px; color: var(--gray); text-decoration: none; opacity: 0.4; transition: opacity 0.3s; }
   .footer-links a:hover { opacity: 0.8; }
-
-  .nav-hamburger { display:none; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; z-index:201; padding:6px; background:none; border:none; }
-  .nav-hamburger span { display:block; width:22px; height:1.5px; background:var(--gold); border-radius:1px; transition:transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s ease, width 0.25s ease; transform-origin:center; }
-  .nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity:0; width:0; }
-  .nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
-
-  .mobile-menu { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; position:fixed; inset:0; background:rgba(26,26,24,0.99); z-index:200; opacity:0; pointer-events:none; transform:translateY(-8px); transition:opacity 0.3s ease, transform 0.3s cubic-bezier(0.23,1,0.32,1); }
-  .mobile-menu.open { opacity:1; pointer-events:all; transform:translateY(0); }
-  .mobile-menu-link { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,36px); font-weight:300; letter-spacing:0.06em; color:var(--cream); text-decoration:none; opacity:0; transform:translateY(12px); transition:color 0.2s, opacity 0.3s ease, transform 0.3s ease; }
-  .mobile-menu.open .mobile-menu-link { opacity:1; transform:translateY(0); }
-  .mobile-menu.open .mobile-menu-link:nth-child(1){transition-delay:0.04s}
-  .mobile-menu.open .mobile-menu-link:nth-child(2){transition-delay:0.09s}
-  .mobile-menu.open .mobile-menu-link:nth-child(3){transition-delay:0.14s}
-  .mobile-menu.open .mobile-menu-link:nth-child(4){transition-delay:0.19s}
-  .mobile-menu-link:hover { color:var(--gold); }
-  .mobile-menu-divider { width:36px; height:0.5px; background:rgba(200,169,110,0.3); opacity:0; transition:opacity 0.3s ease 0.18s; }
-  .mobile-menu.open .mobile-menu-divider { opacity:1; }
-  .mobile-menu-cart { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:0.5px solid rgba(200,169,110,0.5); padding:13px 36px; opacity:0; transform:translateY(12px); transition:background 0.2s, opacity 0.3s ease 0.22s, transform 0.3s ease 0.22s; }
-  .mobile-menu.open .mobile-menu-cart { opacity:1; transform:translateY(0); }
-  .mobile-menu-cart:hover { background:rgba(200,169,110,0.08); }
-
-  nav { transition:background 0.3s ease, box-shadow 0.3s ease; }
-  nav.nav-solid { background:rgba(26,26,24,0.97) !important; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 1px 0 rgba(200,169,110,0.08); }
-  nav.nav-solid::before { opacity:0 !important; }
-
-  @media (max-width:768px) {
-    nav { padding:18px 20px; }
-    .nav-links, .nav-cart { display:none !important; }
-    .nav-hamburger { display:flex; }
-
-    /* Hero / page headers */
-    .hero { padding-left:20px !important; padding-right:20px !important; min-height:36vh; }
-    .hero-title { font-size:clamp(36px,9vw,56px) !important; }
-    .breadcrumb { padding:88px 20px 0 !important; }
-
-    /* Product page */
-    .product-hero { padding:28px 20px 64px !important; grid-template-columns:1fr !important; gap:28px !important; }
-    .product-gallery { position:static !important; }
-    .product-main-img { aspect-ratio:4/3; }
-    .product-thumbnails { display:none !important; }
-    .product-name { font-size:clamp(36px,9vw,52px) !important; }
-    .product-info { padding-top:0 !important; }
-    .taste-bar-label { width:66px !important; font-size:10px; }
-    .options-grid { flex-wrap:wrap; }
-    .option-btn { flex:1; min-width:68px; text-align:center; }
-    .purchase-row { flex-direction:column !important; }
-    .add-to-cart { width:100%; }
-    .product-details { padding:40px 20px 64px !important; }
-    .details-grid { grid-template-columns:1fr !important; }
-    .detail-block { padding:28px 18px !important; }
-    .related { padding:40px 20px 64px !important; }
-    .related-grid { grid-template-columns:1fr !important; }
-
-    /* Inner pages */
-    .content { padding:56px 20px !important; }
-    .intro { grid-template-columns:1fr !important; gap:32px !important; }
-    .values { padding:0 20px 64px !important; }
-    .values-grid { grid-template-columns:1fr !important; }
-    .origin { padding:0 20px 64px !important; grid-template-columns:1fr !important; }
-    .origin-visual { display:none !important; }
-    .cta-section { margin:0 20px 64px !important; padding:40px 18px !important; }
-    .layout { grid-template-columns:1fr !important; gap:0 !important; padding:48px 20px 64px !important; }
-    .sidebar { display:none !important; }
-    .contact-layout { grid-template-columns:1fr !important; }
-    .contact-info { padding:48px 20px !important; }
-    .contact-form { padding:36px 20px 48px !important; }
-    .doc-layout { grid-template-columns:1fr !important; padding:48px 20px 64px !important; }
-    .doc-nav { display:none !important; }
-
-    /* Footer */
-    footer { padding:48px 20px 36px !important; flex-direction:column !important; grid-template-columns:1fr !important; gap:28px !important; }
-    .footer-links { flex-wrap:wrap !important; gap:10px 18px !important; }
-    .footer-bottom { padding:16px 20px !important; flex-direction:column !important; gap:10px !important; text-align:center !important; }
-    .footer-legal { gap:14px !important; flex-wrap:wrap !important; justify-content:center !important; }
-  }
-
 </style>
 </head>
 <body>
-
-<!-- ▸ MOBILE MENU OVERLAY -->
-<div class="mobile-menu" id="cresta-mobile-menu">
-  <a class="mobile-menu-link" href="index.html"    onclick="crestaMobileClose()">Strona główna</a>
-  <a class="mobile-menu-link" href="index.html#produkty" onclick="crestaMobileClose()">Produkty</a>
-  <a class="mobile-menu-link" href="o-marce.html"  onclick="crestaMobileClose()">O marce</a>
-  <a class="mobile-menu-link" href="kontakt.html"  onclick="crestaMobileClose()">Kontakt</a>
-  <div class="mobile-menu-divider"></div>
-  <a class="mobile-menu-cart" href="koszyk.html"   onclick="crestaMobileClose()">Koszyk (0)</a>
-</div>
 
 <nav>
   <a href="index.html" class="nav-logo">CRESTA</a>
@@ -140,7 +53,6 @@
     <li><a href="o-marce.html">O marce</a></li>
     <li><a href="kontakt.html">Kontakt i dane firmy</a></li>
   </ul>
-  <button class="nav-hamburger" id="cresta-hamburger" onclick="crestaMobileToggle()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="hero">
@@ -166,7 +78,7 @@
 
     <div class="doc-section" id="administrator">
       <h2>Administrator danych</h2>
-      <p>Administratorem Twoich danych osobowych jest LUKARO TRADING SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA z siedziba przy Krolewska 53, 05-827 Grodzisk Mazowiecki, Polska, email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b7bca0a7ba95b9a0beb4a7bafba5b9">[email&#160;protected]</a>.</p>
+      <p>Administratorem Twoich danych osobowych jest LUKARO TRADING SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA z siedziba przy Krolewska 53, 05-827 Grodzisk Mazowiecki, Polska, email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="30525945425f705c455b51425f1e405c">[email&#160;protected]</a>.</p>
       <p>Dokładamy wszelkich starań, aby Twoje dane były bezpieczne i przetwarzane zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO).</p>
     </div>
 
@@ -207,7 +119,7 @@
         <li>Prawo do sprzeciwu wobec przetwarzania</li>
         <li>Prawo do cofnięcia zgody w dowolnym momencie</li>
       </ul>
-      <p>Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bedcd7cbccd1fed2cbd5dfccd190ced2">[email&#160;protected]</a>.</p>
+      <p>Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43212a36312c032f362822312c6d332f">[email&#160;protected]</a>.</p>
     </div>
 
     <div class="doc-section" id="cookies">
@@ -225,7 +137,7 @@
       <h2>Kontakt w sprawach prywatności</h2>
       <p>W przypadku pytań dotyczących ochrony Twoich danych osobowych skontaktuj się z nami:</p>
       <ul>
-        <li>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="15777c60677a5579607e74677a3b6579">[email&#160;protected]</a></li>
+        <li>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="47252e323528072b322c26352869372b">[email&#160;protected]</a></li>
         <li>Formularz: <a href="kontakt.html" style="color: var(--gold);">strona kontaktowa</a></li>
       </ul>
       <p>Masz również prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (UODO), jeśli uważasz, że przetwarzamy Twoje dane 

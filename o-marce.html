@@ -177,28 +177,25 @@
   </ul>
 </footer>
 
+
 <script>
 (function(){
-  function revealAll() {
-    document.querySelectorAll('.reveal').forEach(function(el) {
+  function checkReveal(){
+    document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
       var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 1.1) {
-        el.classList.add('visible');
-      }
+      if(r.top < window.innerHeight + 50){ el.classList.add('visible'); }
     });
   }
   // Run immediately
-  revealAll();
+  checkReveal();
   // Run on scroll
-  window.addEventListener('scroll', revealAll, { passive: true });
-  // Run after fonts/images load
-  window.addEventListener('load', revealAll);
-  // Fallback: force all visible after 300ms
+  window.addEventListener('scroll', checkReveal, {passive:true});
+  // Run on load (fonts/images may shift layout)
+  window.addEventListener('load', checkReveal);
+  // Hard fallback — make everything visible after 400ms
   setTimeout(function(){
-    document.querySelectorAll('.reveal').forEach(function(el){
-      el.classList.add('visible');
-    });
-  }, 300);
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+  }, 400);
 })();
 </script>
 </body>
