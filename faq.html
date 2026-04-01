@@ -94,17 +94,25 @@
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
   .mob-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,26,24,0.98);
-    z-index: 200;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 32px;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,26,24,0.98);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.23,1,0.32,1);
   }
-  .mob-menu.open { display: flex; }
+  .mob-menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
   .mob-menu a {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(26px,7vw,36px);
@@ -112,7 +120,16 @@
     color: var(--cream);
     text-decoration: none;
     letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: color 0.2s, opacity 0.3s ease, transform 0.3s ease;
   }
+  .mob-menu.open a { opacity: 1; transform: translateY(0); }
+  .mob-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+  .mob-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+  .mob-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+  .mob-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+  .mob-menu.open a:nth-child(5) { transition-delay: 0.22s; }
   .mob-menu a:hover { color: var(--gold); }
   .mob-menu .mob-cart {
     font-family: 'Montserrat', sans-serif;
@@ -123,8 +140,13 @@
     color: var(--gold);
     border: 0.5px solid rgba(200,169,110,0.5);
     padding: 12px 32px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: background 0.2s, opacity 0.3s ease 0.22s, transform 0.3s ease 0.22s;
   }
-  .mob-divider { width: 36px; height: 0.5px; background: rgba(200,169,110,0.25); }
+  .mob-menu.open .mob-cart { opacity: 1; transform: translateY(0); }
+  .mob-divider { width: 36px; height: 0.5px; background: rgba(200,169,110,0.25); opacity: 0; transition: opacity 0.3s ease 0.18s; }
+  .mob-menu.open .mob-divider { opacity: 1; }
 
   nav { transition: background 0.3s; }
   nav.nav-solid {
