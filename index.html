@@ -8,6 +8,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* overflow fix injected */
+
+  /* ── PREVENT HORIZONTAL OVERFLOW (fixes mobile viewport) ── */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+  }
+  .strip {
+    overflow: hidden !important;
+    max-width: 100vw !important;
+  }
+
   :root {
     --black: #1A1A18;
     --gold: #C8A96E;
@@ -1185,27 +1197,18 @@
   </div>
 </div>
 
-
-
 <script>
-(function(){
-  function checkReveal(){
-    document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
-      var r = el.getBoundingClientRect();
-      if(r.top < window.innerHeight + 50){ el.classList.add('visible'); }
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
     });
-  }
-  // Run immediately
-  checkReveal();
-  // Run on scroll
-  window.addEventListener('scroll', checkReveal, {passive:true});
-  // Run on load (fonts/images may shift layout)
-  window.addEventListener('load', checkReveal);
-  // Hard fallback — make everything visible after 400ms
-  setTimeout(function(){
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
-  }, 400);
-})();
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
